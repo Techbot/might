@@ -44,7 +44,7 @@ poisen_resist[0]=0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
-tile_names[1] = ['ninja-black','ninja-red'];
+tile_names[1] = ['ninja-black','ninja-red','stage'];
 
 slack[1]=100;
 health[1] =100;

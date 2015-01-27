@@ -370,13 +370,14 @@ function enemyHitsPlayer (player,bullet) {
     
     bullet.kill();
 
-    live = lives.getFirstAlive();
-
+  //  live = lives.getFirstAlive();
+/*
     if (live)
     {
-        live.kill();
+  //      live.kill();
     }
-
+*/
+    /*
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
     explosion.reset(player.body.x, player.body.y);
@@ -394,6 +395,7 @@ function enemyHitsPlayer (player,bullet) {
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
     }
+    */
 
 }
 
@@ -419,10 +421,24 @@ function enemyFires () {
         // randomly select one of them
         //var shooter=livingEnemies[random];
         // And fire the bullet from this enemy
-        enemyBullet.reset(sprite2.body.x, sprite2.body.y);
+        enemyBullet.reset(sprite2.body.x, sprite2.body.y+40);
 
         game.physics.arcade.moveToObject(enemyBullet,player,1200);
-        firingTimer = game.time.now + 200;
+
+
+    var max = 1200;
+    var min = 200;
+
+       timer_1 = Math.floor((Math.random() * 1200) + 200); ;
+
+
+        firingTimer = game.time.now + timer_1;
+
+
+
+
+
+
    // }
 
 }
@@ -445,6 +461,39 @@ function fireBullet () {
     }
 
 }
+
+
+function block () {
+
+
+        //  And fire it
+        sprite3.body.enable = true;
+        sprite3.alpha = 0.99999;
+
+
+}
+
+
+function unblock () {
+
+    sprite3.body.enable = false;
+    sprite3.alpha = 0.1;
+
+
+}
+
+
+
+function blockEnemyBullets(one,two) {
+
+    two.kill();
+
+
+}
+
+
+
+
 
 function resetBullet (bullet) {
 
@@ -476,7 +525,8 @@ function createAliens () {
    //     for (var x = 0; x < 10; x++)
    //     {
             var alien = aliens.create(x * 48, y * 50, 'black');
-            alien.anchor.setTo(0.5, 0.5);
+            alien.anchor.setTo(0.5, 0.5);sprite3.body.enable = false;
+    sprite3.alpha = 0.1;
         //    alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
        //     alien.play('fly');
        //     alien.body.moves = false;

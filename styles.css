@@ -11,7 +11,13 @@ rgba(255,0,0,1); -> red
 rgba(0,255,0,1); -> green
 rgba(0,0,255,1); -> blue
 
-*/
+*/html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 
 body {
 font-family:arial, sans-serif;
@@ -19,13 +25,14 @@ color:rgb(0,0,0);
 }
 
 #container {
-background: rgba(203,203,203,1);
+ 
 margin: 0 auto;
-width: 574px;
+width: 568px;
 height:456px;
-padding: 10px;
+padding: 0px;
+background:url(toolbar.jpg) no-repeat 50% 0 rgb(0,0,0);
 text-align: center;
-border: 3px solid rgba(123,123,123,1);
+border: 3px solid black;
 overflow:hidden;
 }
 
@@ -36,7 +43,7 @@ margin:0;
 }
 
 canvas {
-border: 1px solid rgba(255,255,255,1);
+
 margin:130px 0 0 ;
 }
 

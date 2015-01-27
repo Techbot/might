@@ -20,12 +20,13 @@ playState[1] = {
             var filename = tile_names[grid][index];
             game.load.image(filename, '' + filename +'.png');
         }
-        game.load.image('red', 'ninja-red.png');
-        game.load.image('black', 'ninja-black.png');
-       
+        game.load.image('background', 'stage.png');
+        game.load.image('red', 'strongman-red.png');
+        game.load.image('black', 'strongman-black.png');
+        game.load.image('shield', 'shield.png');
     },
     create: function() {
-        
+        background = game.add.tileSprite(0, 0, 800, 600, 'background'); 
         game.physics.startSystem(Phaser.Physics.ARCADE);
        // game.add.plugin(Phaser.Plugin.Tiled);
         //  Modify the world and camera bounds
@@ -46,7 +47,8 @@ playState[1] = {
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
 
-    // The enemy's bullets
+
+       // The enemy's bullets
     enemyBullets = game.add.group();
     enemyBullets.enableBody = true;
     enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -72,7 +74,7 @@ playState[1] = {
      //   }
 
 
-      //  game.load.image(cacheKey('grid001optimised', 'layer', 'grid001optimised'), 'grid001optimised.png');
+     //   game.load.image(cacheKey('background', 'layer', 'background'), 'background.png');
       
           //  And some controls to play the game with
     cursors = game.input.keyboard.createCursorKeys();
@@ -100,7 +102,7 @@ playState[1] = {
        }
         if (new_y<1 )
         {
-            new_y=200;
+            new_y=100;
         }
 
 
@@ -115,13 +117,20 @@ playState[1] = {
      //sprite = game.add.sprite(parseInt(new_x),parseInt(new_y), 'arrow');
 
         player = game.add.sprite(parseInt(new_x),parseInt(new_y), 'red');
-		sprite2 = game.add.sprite(parseInt(new_x + 530),parseInt(new_y), 'black');
+		sprite2 = game.add.sprite(parseInt(new_x + 490),parseInt(new_y), 'black');
 
 
 
+
+
+
+        sprite3  = game.add.sprite(new_x + 100, new_y, 'shield');
 
         game.physics.enable(player, Phaser.Physics.ARCADE);
         game.physics.enable(sprite2, Phaser.Physics.ARCADE);
+        game.physics.enable(sprite3, Phaser.Physics.ARCADE);
+
+
         player.body.enable =true;
         player.body.allowRotation = false;
         this.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
@@ -129,8 +138,9 @@ playState[1] = {
 /////////////////////////////////////////////place buildings//////
   //  The baddies!
     aliens = game.add.group();
-    sprite2.enableBody = true;
-    sprite2.physicsBodyType = Phaser.Physics.ARCADE;
+
+   // sprite2.enableBody = true;
+    //sprite2.physicsBodyType = Phaser.Physics.ARCADE;
 
     createAliens();
 
@@ -167,19 +177,33 @@ cursors = game.input.keyboard.createCursorKeys();
         //  Reset the player, then check for movement keys
         player.body.velocity.setTo(0, 0);
 
-        if (cursors.left.isDown)
+        if (cursors.left.isDown && cursors.right.isUp)
         {
-            player.body.velocity.x = -200;
+           // player.body.velocity.x = -200;
+            block(sprite3);
         }
-        else if (cursors.right.isDown)
+        else if (cursors.left.isUp)
         {
-            player.body.velocity.x = 200;
+            //  player.body.velocity.x = 200;
+            console.log('unblock');
+            unblock(sprite3);
         }
+
+        if (cursors.right.isDown && cursors.left.isUp)
+        {
+          //  player.body.velocity.x = 200;
+           fireBullet();
+        }
+
+
+
+
+
 
         //  Firing?
         if (fireButton.isDown)
         {
-            fireBullet();
+        //    fireBullet();
         }
 
         if (game.time.now > firingTimer)
@@ -190,6 +214,7 @@ cursors = game.input.keyboard.createCursorKeys();
         //  Run collision
         game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
         game.physics.arcade.overlap(enemyBullets, player, enemyHitsPlayer, null, this);
+        game.physics.arcade.overlap(enemyBullets, sprite3, blockEnemyBullets, null, this);
     }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -198,7 +223,7 @@ cursors = game.input.keyboard.createCursorKeys();
         
             //  Reset the players velocity (movement)
   //  player.body.velocity.x = 0;
- 
+ /*
     if (cursors.left.isDown)
     {
         //  Move to the left
@@ -230,26 +255,7 @@ cursors = game.input.keyboard.createCursorKeys();
  //       player.body.velocity.y = -350;
     }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+*/
         
 
 
